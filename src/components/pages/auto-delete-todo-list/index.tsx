@@ -19,7 +19,7 @@ export const AutoDeleteTodoListPage = () => {
             stacks: NextJS, TailwindCSS, ShadcnUI, RTKQuery(Redux), AWS
           </p>
           <p className="text-md">
-            develop by &nbsp;
+            develop by&nbsp;
             <Link
               href="https://phurin.vercel.app"
               target="_blank"
