@@ -20,20 +20,21 @@ jobs:
         run: npm run build
 
       - name: Zip Deployment Package
-        run: zip -r deploy.zip . -x "*.git*"
+        run: zip -r deploy.zip . -x "node_modules/*" ".git/*"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
 
       - name: Upload to S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp deploy.zip s3://your-project-deployments/
+        run: aws s3 cp deploy.zip s3://your-actual-s3-bucket-name/
 
       - name: Deploy with CodeDeploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws deploy create-deployment --application-name NextjsApp \
             --deployment-group-name NextjsDeploymentGroup \
-            --s3-location bucket=your-project-deployments,key=deploy.zip,bundleType=zip
+            --s3-location bucket=your-actual-s3-bucket-name,key=deploy.zip,bundleType=zip \
+            --region us-east-2
