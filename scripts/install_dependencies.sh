@@ -6,6 +6,6 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/my-nextjs-app
 
 echo "Installing dependencies..."
 cd /home/ubuntu/my-nextjs-app
-npm install --unsafe-perm  # Allows running as different users
+sudo npm install --unsafe-perm=true --allow-rootAllows running as different users
 
 echo "Dependencies installed successfully."
