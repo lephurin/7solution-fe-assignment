@@ -3,12 +3,17 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/my-nextjs-app
+    fileExistsBehavior: OVERWRITE
 permissions:
   - object: /home/ubuntu/my-nextjs-app
     owner: ubuntu
     group: ubuntu
 hooks:
-  AfterInstall:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: ubuntu
+  ApplicationStart:
     - location: scripts/restart_server.sh
       timeout: 300
       runas: ubuntu
