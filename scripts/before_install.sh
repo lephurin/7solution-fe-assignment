@@ -1,12 +1,14 @@
 #!/bin/bash
+set -e  # Stop script on error
+
 echo "Stopping existing application (if any)..."
-if systemctl list-units --type=service | grep -q "nextjs-app.service"; then
-  sudo systemctl stop nextjs-app.service
+if pm2 list | grep -q "my-nextjs-app"; then
+  pm2 stop my-nextjs-app
 else
-  echo "Service nextjs-app.service not found, skipping..."
+  echo "PM2 process not found, skipping stop..."
 fi
 
-echo "Removing old application files..."
-sudo rm -rf /home/ubuntu/my-nextjs-app/* # Remove files but keep folder
+echo "Removing old application files, except .git folder..."
+find /home/ubuntu/my-nextjs-app -mindepth 1 ! -regex '^/home/ubuntu/my-nextjs-app/.git\(/.*\)?' -delete
 
 echo "BeforeInstall completed successfully."
