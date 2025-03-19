@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
 import { useGetProductsQuery } from "@/services";
 import Link from "next/link";
 import { TodoListSection } from "./section/todo-list-section";
 
 export const AutoDeleteTodoListPage = () => {
-  const { data, error, isLoading } = useGetProductsQuery();
+  const { data } = useGetProductsQuery();
 
   const products = data?.data || [];
 
@@ -19,7 +18,7 @@ export const AutoDeleteTodoListPage = () => {
             stacks: NextJS, TailwindCSS, ShadcnUI, RTKQuery(Redux), AWS
           </p>
           <p className="text-md">
-            develop by&nbsp;
+            develop by -&nbsp;
             <Link
               href="https://phurin.vercel.app"
               target="_blank"
