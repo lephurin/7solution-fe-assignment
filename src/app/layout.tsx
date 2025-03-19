@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "7solution Front End Assignment",
+  title: "Auto Delete Todo List - Front End Assignment",
   description: "Assignment for applicant",
 };
 
